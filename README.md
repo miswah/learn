@@ -15,8 +15,9 @@ This is a personal system I built for myself, shared as-is. Built as a pi config
 - `extensions/md-log/` — link a markdown file to the session
 - `extensions/visual-tools/` — tools for visualization subagents
 - `agents/` — `researcher`, `svg-maker`, `mermaid-maker`: the subagents the system delegates to
+- `setup.sh` — automated setup script to integrate the environment with Antigravity & Gemini CLI
 
-## Install
+## Install & Setup
 
 This repo **is** a `.pi` directory. From your learning project's root:
 
@@ -24,7 +25,23 @@ This repo **is** a `.pi` directory. From your learning project's root:
 git clone https://github.com/amosblomqvist/learn .pi
 ```
 
-Then open pi in that directory. (Or copy the pieces you want into your existing project config.)
+Then run the setup script to configure the workspace:
+
+```bash
+./.pi/setup.sh
+```
+
+### What `setup.sh` does
+
+1. **Symlinks Root Instructions**: Links `AGENTS.md` and `GEMINI.md` from `.pi/` into the project root so AI agents load guidelines automatically.
+2. **Configures `.agents` for Antigravity / Gemini CLI**:
+   - Symlinks `.agents/skills` to `../.pi/skills`.
+   - Symlinks `.agents/rules/agents.md` if available.
+   - Generates `.agents/skills.json` to register the skills path.
+3. **Initializes Study Log**: Creates `learn_log.md` with default headers if it doesn't already exist.
+4. **Keeps Git Clean**: Adds `.pi`, `.agents`, `AGENTS.md`, `GEMINI.md`, `learn_log.md`, and `viz/` to `.git/info/exclude` (if a git repository exists), preventing learning artifacts from cluttering `git status` without altering `.gitignore`.
+
+Then open pi (or your agent environment) in that directory. (Or copy the pieces you want into your existing project config.)
 
 ## Requirements
 
